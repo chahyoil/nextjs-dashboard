@@ -10,16 +10,19 @@ import {
 } from "@/app/lib/data";
 
 export default async function DashboardPage() {
-  const revenue = await fetchRevenue();
-  const latestInvoices = await fetchLatestInvoices();
+  const [revenue, latestInvoices, cardData] = await Promise.all([
+    fetchRevenue(),
+    fetchLatestInvoices(),
+    fetchCardData(),
+  ]);
 
-  // 객체 리턴이므로 구조분해로 받는다.
+  // cardData에서 필요한 데이터 구조 분해
   const {
     numberOfCustomers,
     numberOfInvoices,
     totalPaidInvoices,
     totalPendingInvoices,
-  } = await fetchCardData();
+  } = cardData;
 
   return (
     <main>
