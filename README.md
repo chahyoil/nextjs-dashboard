@@ -1,5 +1,14 @@
-## Next.js App Router Course - Starter
+## 반응형 미디어쿼리 사용방식
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+- 작은화면에서 큰화면으로 만드는 방식
+- 큰화면에서 작은화면으로 만드는 방식
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+-- 모바일 : 767px 이하
+-- 테블릿 : 768px 이상 ~ 1024px 이하(현재는 1200px 기준)
+-- 데스크탑 : 1025px 이상(현재는 1200px 기준)
+
+## next.js SSR 사용방식
+
+- 검색엔진이 서버에 메타데이터를 요청하여 검색결과에 반영
+- CSR방식은 브라우저에서 컴포넌트가 생성되므로 검색엔진이 메타데이터를 가져오지 못함
+- SSR방식은 서버에서 js를 실행하여 결과를 보내주므로 검색엔진이 메타데이터 등을 받아볼 수 있음

@@ -1,18 +1,24 @@
+/* /app/ui/global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-input[type='number'] {
+/* 테일윈드 기본단위가 rem이므로 모바일 브라우저 접근성 설정에 의한 레이아웃 변경 방지 */
+html {
+  font-size: 16px;
+}
+
+input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
 
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
