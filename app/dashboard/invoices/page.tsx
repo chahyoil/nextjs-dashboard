@@ -7,6 +7,9 @@ import { lusitana } from "@/app/ui/fonts";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
 
+// 총페이지수 가져오는 함수
+import { fetchInvoicesPages } from "@/app/lib/data";
+
 // 객체타입의 ?는 키가 없을수 있다는 의미
 export default async function InvoicesPage({
   searchParams,
@@ -21,6 +24,9 @@ export default async function InvoicesPage({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
+  // 검색된 데이터 갯수 기준 총 페이지수
+  const totalPages = await fetchInvoicesPages(query);
+
   return (
     <div>
       <div>
@@ -34,7 +40,7 @@ export default async function InvoicesPage({
         <Table query={query} currentPage={currentPage} />
       </Suspense>
       <div className='mt-5 flex w-full justify-center'>
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );
