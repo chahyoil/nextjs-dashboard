@@ -37,12 +37,12 @@ export function DeleteInvoice({ id }: { id: string }) {
 
     if (confirm("삭제하시겠습니까?")) {
       const result = await deleteInvoiceWithId();
-      console.log(result);
+      console.log(result?.message);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form action={deleteInvoiceWithId} onSubmit={handleSubmit}>
       <button className='rounded-md border p-2 hover:bg-gray-100'>
         <span className='sr-only'>Delete</span>
         <TrashIcon className='w-5' />

@@ -36,41 +36,50 @@ export async function createInvoice(formData: FormData) {
         INSERT INTO invoices (customer_id, amount, status, date)
         VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
         `;
-
-    // 해당 경로에 대한 데이터 재검증하여 업데이트된 데이터와 캐시 데이터가 다르므로 새로운 데이터 가져옴
-    revalidatePath("/dashboard/invoices");
-    redirect("/dashboard/invoices");
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { error: error.errors[0].message };
+      return { message: error.errors[0].message };
     }
-    return { error: "An unexpected error occurred" };
+    return { message: "Database Error: Failed to Create Invoice." };
   }
+  // 해당 경로에 대한 데이터 재검증하여 업데이트된 데이터와 캐시 데이터가 다르므로 새로운 데이터 가져옴
+  revalidatePath("/dashboard/invoices");
+  redirect("/dashboard/invoices");
 }
 
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function updateInvoice(id: string, formData: FormData) {
-  const { customerId, amount, status } = UpdateInvoice.parse({
-    customerId: formData.get("customerId"),
-    amount: formData.get("amount"),
-    status: formData.get("status"),
-  });
+  try {
+    const { customerId, amount, status } = UpdateInvoice.parse({
+      customerId: formData.get("customerId"),
+      amount: formData.get("amount"),
+      status: formData.get("status"),
+    });
 
-  const amountInCents = amount * 100;
+    const amountInCents = amount * 100;
 
-  await sql`
-    UPDATE invoices
-    SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-    WHERE id = ${id}
-  `;
-
+    await sql`
+            UPDATE invoices
+            SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+            WHERE id = ${id}
+        `;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { message: error.errors[0].message };
+    }
+    return { message: "Database Error: Failed to Update Invoice." };
+  }
   revalidatePath("/dashboard/invoices");
   redirect("/dashboard/invoices");
 }
 
 // /app/lib/actions.ts
 export async function deleteInvoice(id: string) {
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
+  try {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+  } catch (error) {
+    return { message: "Database Error: Failed to Delete Invoice." };
+  }
   revalidatePath("/dashboard/invoices");
 }
