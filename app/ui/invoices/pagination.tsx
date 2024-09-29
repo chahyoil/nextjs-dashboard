@@ -16,8 +16,10 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   // page 파라메터로 현재 페이지 설정, page없으면 1
   const currentPage = Number(searchParams.get("page")) || 1;
 
+  // 현재페이지와 총페이지로 배열 리턴
   const allPages = generatePagination(currentPage, totalPages);
 
+  // url에 page 파라미터 생성
   function createPageURL(pageNumber: number | string) {
     // 검색 매개변수 인스턴스 생성
     const params = new URLSearchParams(searchParams);
@@ -44,7 +46,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
             if (index === 0) position = "first";
             if (index === allPages.length - 1) position = "last";
-            if (allPages.length === 1) position = "single";
+            if (allPages.length === 1) position = "single"; // 페이지번호가 1개일 경우
             if (page === "...") position = "middle";
 
             return (
