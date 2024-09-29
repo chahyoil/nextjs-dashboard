@@ -22,11 +22,6 @@ export default function HomePage() {
           >
             <em className='font-bold not-italic'>환영합니다. </em>
             <strong>Welcome to Acme.</strong>{" "}
-            <span className='montserrat'>This</span> is the example for the{" "}
-            <a href='https://nextjs.org/learn/' className='text-blue-500'>
-              Next.js Learn Course
-            </a>
-            , brought to you by Vercel.
           </p>
           <Link
             href='/login'
