@@ -1,4 +1,6 @@
 // /dashboard/invoices/page.tsx
+import { Metadata } from "next";
+
 import Pagination from "@/app/ui/invoices/pagination";
 import Search from "@/app/ui/search";
 import Table from "@/app/ui/invoices/table";
@@ -6,6 +8,10 @@ import { CreateInvoice } from "@/app/ui/invoices/buttons";
 import { lusitana } from "@/app/ui/fonts";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Invoices",
+};
 
 // 총페이지수 가져오는 함수
 import { fetchInvoicesPages } from "@/app/lib/data";
